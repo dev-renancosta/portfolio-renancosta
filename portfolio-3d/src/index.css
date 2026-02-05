@@ -1,0 +1,17 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  /* Premium Font Stack */
+  /* Premium Light Background */
+  background-color: #ffffff;
+  color: #111111;
+  /* Dark text for contrast */
+}
