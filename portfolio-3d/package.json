@@ -1,9 +1,9 @@
 {
-  "name": "portfolio-3d",
+  "name": "portfolio-renancosta",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://dev-renancosta.github.io/portfolio-3d",
+  "homepage": "https://dev-renancosta.github.io/portfolio-renancosta",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
