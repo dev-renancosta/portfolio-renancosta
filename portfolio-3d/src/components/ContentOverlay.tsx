@@ -19,8 +19,8 @@ export const ContentOverlay: React.FC = () => {
 
         // ANIMATE SECTIONS & CARDS ON SCROLL
         const ctx = gsap.context(() => {
-            // Animate Headers
-            gsap.utils.toArray<HTMLElement>('.section-header').forEach(header => {
+            // Animate Generic Headers (excluding About section specific ones)
+            gsap.utils.toArray<HTMLElement>('.section-header:not(.about-left):not(.about-right)').forEach(header => {
                 gsap.from(header, {
                     scrollTrigger: {
                         trigger: header,
@@ -33,16 +33,39 @@ export const ContentOverlay: React.FC = () => {
                 });
             });
 
+            // Specific About Section Animation (Staggered: Left -> Right 0.2s delay)
+            const aboutTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".about-left",
+                    start: "top 85%",
+                }
+            });
+
+            aboutTl.from(".about-left", {
+                y: 30,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            })
+                .from(".about-right", {
+                    y: 30,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power3.out"
+                }, "<0.2");
+
             // Animate Project/Service Cards (Batch)
             ScrollTrigger.batch(".project-card", {
                 onEnter: (batch) => {
-                    gsap.from(batch, {
-                        y: 60,
-                        opacity: 0,
-                        duration: 0.8,
-                        stagger: 0.15,
-                        ease: "power3.out"
-                    });
+                    gsap.fromTo(batch,
+                        { y: 60, opacity: 0 },
+                        {
+                            y: 0,
+                            opacity: 1,
+                            duration: 0.8,
+                            ease: "power3.out"
+                        }
+                    );
                 },
                 start: "top 90%"
             });
@@ -67,17 +90,18 @@ export const ContentOverlay: React.FC = () => {
                 <Section id="about">
                     <Container>
                         <div className="grid-2">
-                            <div className="section-header">
+                            <div className="section-header about-left">
                                 <h6 className="uppercase-track">Who I Am</h6>
                                 <h2>
                                     Crafting Digital <br />
                                     <span>Experiences.</span>
                                 </h2>
                             </div>
-                            <div className="section-header">
+                            <div className="section-header about-right">
                                 <p>
-                                    I combine cutting-edge technology with minimalist design to create "High-Ticket" web experiences.
-                                    My focus is on performance, interactivity, and converting visitors into clients through immersive storytelling.
+                                    Software Engineering Student crafting high-performance digital experiences.
+
+                                    I combine technical expertise with unique designs to create impactful web solutions. My focus is on performance, interactivity, and converting visitors into clients through immersive storytelling.
                                 </p>
                                 <p>
                                     Based in Brazil, working globally.
@@ -98,15 +122,15 @@ export const ContentOverlay: React.FC = () => {
                         <div className="grid-3">
                             <div className="project-card">
                                 <h3>Creative Development</h3>
-                                <p>WebGL, Three.js, and GSAP animations that bring your brand to life interactively.</p>
+                                <p>Building interactive experiences with WebGL, Three.js, and GSAP to bring brands to life.</p>
                             </div>
                             <div className="project-card">
                                 <h3>Full Stack Web</h3>
-                                <p>Scalable applications using React, Next.js, and Node.js with robust architecture.</p>
+                                <p>Developing scalable applications using React, Next.js, and Node.js with robust architecture.</p>
                             </div>
                             <div className="project-card">
                                 <h3>UI/UX Design</h3>
-                                <p>User-centric interfaces designed for conversion, accessibility, and visual impact.</p>
+                                <p>Crafting user-centric interfaces focused on conversion, accessibility, and visual impact.</p>
                             </div>
                         </div>
                     </Container>
